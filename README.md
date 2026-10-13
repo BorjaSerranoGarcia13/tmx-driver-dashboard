@@ -2,6 +2,8 @@
 
 A small Angular demo for reviewing driver scores, benefit eligibility and fleet data.
 
+[Try the demo](https://tmx-driver-dashboard.vercel.app)
+
 ## Features
 
 - Portfolio summary and driver score history.
