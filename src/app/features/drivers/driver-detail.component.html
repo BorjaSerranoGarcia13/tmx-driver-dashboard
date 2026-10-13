@@ -1,0 +1,186 @@
+<a class="back-link" routerLink="/drivers">← Back to drivers</a>
+@if (facade.detailLoading()) {
+  <div class="detail-heading"><app-loading-block [height]="116" /></div>
+  <app-loading-block [height]="420" />
+} @else if (facade.detailError()) {
+  <section class="detail-heading">
+    <span class="eyebrow">Driver detail</span>
+    <h1>Driver profile unavailable</h1>
+    <p>Use the error dialog to retry or return to the driver list.</p>
+  </section>
+  <section class="unavailable-state">
+    <span class="unavailable-state__icon" aria-hidden="true">i</span>
+    <div>
+      <strong>This profile is not available right now.</strong>
+      <p>The underlying page remains in place while the request is resolved.</p>
+    </div>
+  </section>
+} @else if (facade.selectedDriver(); as driver) {
+  <section class="detail-heading">
+    <div>
+      <span class="eyebrow">Driver 360 · {{ driver.id }}</span>
+      <h1>{{ driver.displayName }}</h1>
+      <p>{{ driver.region }} · Data updated {{ driver.lastUpdated | date: 'dd MMM yyyy' }}</p>
+    </div>
+    <app-status-pill [value]="driver.riskLevel" [label]="driver.riskLevel + ' risk'" />
+  </section>
+
+  <app-review-editor
+    [driverId]="driver.id"
+    [item]="workItem()"
+    [saving]="work.saving()"
+    [ready]="work.hydrated()"
+    [error]="work.error()"
+    (save)="saveWork($event)"
+    (remove)="removeWork()"
+    (retryStorage)="work.hydrate()"
+  />
+
+  <div class="detail-grid">
+    <app-driver-summary [driver]="driver" />
+
+    <app-score-history [driver]="driver" />
+
+    <section class="panel signals-panel">
+      <div class="panel__heading">
+        <div>
+          <span class="eyebrow">Annual signals</span>
+          <h2>Behaviour snapshot</h2>
+        </div>
+      </div>
+      <div class="signal-grid">
+        <div>
+          <span>Distance</span><strong>{{ driver.annualDistanceKm | number }} km</strong>
+        </div>
+        <div>
+          <span>Harsh braking</span><strong>{{ driver.harshBrakingEvents }}</strong>
+        </div>
+        <div>
+          <span>Speeding events</span><strong>{{ driver.speedingEvents }}</strong>
+        </div>
+        <div>
+          <span>Risk level</span
+          ><app-status-pill [value]="driver.riskLevel" [label]="driver.riskLevel" />
+        </div>
+      </div>
+    </section>
+
+    <section class="panel criteria-panel">
+      <div class="panel__heading">
+        <div>
+          <span class="eyebrow">Evaluation inputs</span>
+          <h2>Decision criteria</h2>
+        </div>
+        <span class="panel__meta">Current evaluation</span>
+      </div>
+      <div class="criteria-list">
+        @for (criterion of driver.criteria; track criterion.id) {
+          <div class="criteria-row">
+            <div class="criteria-row__label">
+              <strong>{{ criterion.label }}</strong>
+              <small>{{ criterion.detail }}</small>
+            </div>
+            <span class="criteria-target">Target {{ criterion.target }}</span>
+            <div class="criteria-row__result">
+              <strong>{{ criterion.value }}</strong>
+              <app-status-pill
+                [value]="criterion.status"
+                [label]="criterionLabels[criterion.status]"
+              />
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="panel benchmark-panel">
+      <div class="panel__heading">
+        <div>
+          <span class="eyebrow">Fleet context</span>
+          <h2>Benchmark</h2>
+        </div>
+      </div>
+      <p class="benchmark-copy">
+        {{ driver.displayName }} compared with {{ driver.fleetBenchmark.fleetName }}.
+      </p>
+      <div class="benchmark-bars" aria-label="Driver score compared with fleet average">
+        <div class="benchmark-row">
+          <span>Your score</span>
+          <div class="benchmark-track"><span [style.width.%]="driver.score"></span></div>
+          <strong>{{ driver.score }}</strong>
+        </div>
+        <div class="benchmark-row">
+          <span>Fleet average</span>
+          <div class="benchmark-track benchmark-track--muted">
+            <span [style.width.%]="driver.fleetBenchmark.averageScore"></span>
+          </div>
+          <strong>{{ driver.fleetBenchmark.averageScore }}</strong>
+        </div>
+      </div>
+      <div class="benchmark-callout">
+        <strong
+          >Rank {{ driver.fleetBenchmark.rank }} of {{ driver.fleetBenchmark.totalDrivers }}</strong
+        >
+        <span>{{ driver.fleetBenchmark.percentile }}th percentile in the fleet</span>
+      </div>
+    </section>
+
+    <app-benefit-explanation [driver]="driver" />
+
+    <section class="panel benefits-panel">
+      <div class="panel__heading">
+        <div>
+          <span class="eyebrow">Benefits</span>
+          <h2>Current opportunities</h2>
+        </div>
+      </div>
+      @if (driver.benefits.length === 0) {
+        <p class="muted-copy">No benefits are currently associated with this profile.</p>
+      } @else {
+        <div class="benefit-list">
+          @for (benefit of driver.benefits; track benefit.id) {
+            <article class="benefit-item">
+              <div>
+                <strong>{{ benefit.label }}</strong>
+                <p>{{ benefit.description }}</p>
+              </div>
+              <div class="benefit-item__meta">
+                <strong>{{ benefit.value }}</strong
+                ><app-status-pill [value]="benefit.status" [label]="benefit.status" />
+              </div>
+            </article>
+          }
+        </div>
+      }
+    </section>
+
+    @if (driver.decisionHistory.length > 0) {
+      <section class="panel decision-history-panel">
+        <div class="panel__heading">
+          <div>
+            <span class="eyebrow">Audit trail</span>
+            <h2>Decision history</h2>
+          </div>
+          <span class="panel__meta">{{ driver.decisionHistory.length }} evaluations</span>
+        </div>
+        <div class="decision-history-list">
+          @for (entry of driver.decisionHistory; track entry.id) {
+            <article class="decision-history-item">
+              <div class="decision-history-item__marker" aria-hidden="true"></div>
+              <div class="decision-history-item__content">
+                <div class="decision-history-item__heading">
+                  <div>
+                    <strong>{{ entry.benefitLabel }}</strong>
+                    <span>{{ entry.evaluatedAt | date: 'dd MMM yyyy' }}</span>
+                  </div>
+                  <app-status-pill [value]="entry.status" [label]="entry.status" />
+                </div>
+                <p>{{ entry.reason }}</p>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    }
+  </div>
+}

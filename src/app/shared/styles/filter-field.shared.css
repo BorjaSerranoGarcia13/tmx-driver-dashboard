@@ -1,0 +1,14 @@
+.field {
+  display: grid;
+  gap: 0.32rem;
+  color: var(--ink-muted);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}

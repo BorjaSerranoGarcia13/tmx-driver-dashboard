@@ -1,0 +1,352 @@
+.back-link {
+  display: inline-flex;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.detail-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.detail-heading h1 {
+  margin: 0.4rem 0 0.35rem;
+}
+
+.detail-heading p {
+  margin: 0;
+  color: var(--ink-muted);
+}
+
+.unavailable-state {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink-soft);
+  box-shadow: var(--shadow-sm);
+}
+
+.unavailable-state__icon {
+  display: grid;
+  flex: 0 0 1.7rem;
+  height: 1.7rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.unavailable-state strong {
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.unavailable-state p {
+  margin: 0.2rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 1rem;
+}
+
+.signals-panel {
+  grid-column: 2 / 3;
+}
+
+.signal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 1.35rem;
+}
+
+.signal-grid div {
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+}
+
+.signal-grid span {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+}
+
+.signal-grid strong {
+  color: var(--ink);
+}
+
+.criteria-panel,
+.benefits-panel,
+.decision-history-panel {
+  grid-column: 1 / -1;
+}
+
+.criteria-list {
+  margin-top: 1.1rem;
+}
+
+.criteria-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.45fr) auto;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.criteria-row__label {
+  min-width: 0;
+}
+
+.criteria-row__label strong,
+.criteria-row__label small {
+  display: block;
+}
+
+.criteria-row__label strong {
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.criteria-row__label small {
+  margin-top: 0.25rem;
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+}
+
+.criteria-target {
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+}
+
+.criteria-row__result {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.criteria-row__result > strong {
+  color: var(--ink);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.benchmark-panel {
+  grid-column: 1 / 2;
+}
+
+.benchmark-copy {
+  margin: 0.9rem 0 1.2rem;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+}
+
+.benchmark-row {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr) 2rem;
+  gap: 0.65rem;
+  align-items: center;
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+}
+
+.benchmark-row strong {
+  color: var(--ink);
+  text-align: right;
+}
+
+.benchmark-track {
+  height: 0.55rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--surface-muted);
+}
+
+.benchmark-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+
+.benchmark-track--muted span {
+  background: var(--accent);
+  opacity: 0.42;
+}
+
+.benchmark-callout {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 1.25rem;
+  padding: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+}
+
+.benchmark-callout strong {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.benchmark-callout span {
+  color: var(--ink-muted);
+  font-size: 0.7rem;
+}
+
+.benefit-list {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 1.2rem;
+}
+
+.benefit-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.benefit-item p {
+  margin: 0.28rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.8rem;
+}
+
+.benefit-item__meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.45rem;
+}
+
+.benefit-item__meta > strong {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.muted-copy {
+  margin-top: 1.25rem;
+  color: var(--ink-muted);
+}
+
+.decision-history-list {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 1.15rem;
+}
+
+.decision-history-item {
+  display: grid;
+  grid-template-columns: 0.6rem minmax(0, 1fr);
+  gap: 0.8rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.decision-history-item__marker {
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-top: 0.25rem;
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 0 0 0.2rem var(--accent-soft);
+}
+
+.decision-history-item__heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.decision-history-item__heading > div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.decision-history-item__heading strong {
+  color: var(--ink);
+  font-size: 0.8rem;
+}
+
+.decision-history-item__content p {
+  margin: 0.35rem 0 0;
+  color: var(--ink-muted);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 980px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .signals-panel,
+  .benchmark-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  .detail-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .criteria-row {
+    grid-template-columns: 1fr auto;
+  }
+
+  .criteria-target {
+    grid-column: 1 / 2;
+  }
+
+  .criteria-row__result {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+  }
+}
+
+@media (max-width: 520px) {
+  .signal-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .benchmark-row {
+    grid-template-columns: 5rem minmax(0, 1fr) 1.8rem;
+    gap: 0.45rem;
+  }
+
+  .benefit-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .benefit-item__meta {
+    justify-items: start;
+  }
+}

@@ -1,0 +1,16 @@
+.loading-block {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(90deg, var(--surface-muted), #f8fbfc, var(--surface-muted));
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}

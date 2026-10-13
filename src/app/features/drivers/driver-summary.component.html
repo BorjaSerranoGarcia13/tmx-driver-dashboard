@@ -1,0 +1,19 @@
+<section class="panel score-panel">
+  <div class="score-panel__value">
+    <strong>{{ driver().score }}</strong
+    ><span>/100</span>
+  </div>
+  <div class="score-panel__content">
+    <span class="eyebrow">Current driving score</span>
+    <h2>Performance snapshot</h2>
+    <div class="score-panel__facts">
+      <span
+        ><strong>{{ driver().fleetBenchmark.percentile }}th</strong> fleet percentile</span
+      >
+      <span
+        ><strong>{{ driver().fleetBenchmark.averageScore }}</strong> fleet average</span
+      >
+    </div>
+  </div>
+  <app-status-pill [value]="driver().trend" [label]="'Trend: ' + driver().trend" />
+</section>

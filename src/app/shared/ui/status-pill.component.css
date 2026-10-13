@@ -1,0 +1,53 @@
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.45rem;
+  padding: 0.18rem 0.45rem;
+  border-radius: 0.2rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.status-pill::before {
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-right: 0.32rem;
+  border-radius: 50%;
+  background: currentColor;
+  content: '';
+}
+
+.status-pill--low,
+.status-pill--improving,
+.status-pill--eligible,
+.status-pill--met,
+.status-pill--done {
+  background: var(--positive-soft);
+  color: var(--positive);
+}
+
+.status-pill--medium,
+.status-pill--stable,
+.status-pill--pending,
+.status-pill--watch,
+.status-pill--in-progress,
+.status-pill--follow-up {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.status-pill--high,
+.status-pill--declining,
+.status-pill--unavailable,
+.status-pill--not-met {
+  background: var(--critical-soft);
+  color: var(--critical);
+}
+
+.status-pill--saved {
+  background: var(--surface-muted);
+  color: var(--ink-muted);
+}

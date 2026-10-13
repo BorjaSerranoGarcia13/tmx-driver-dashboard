@@ -1,0 +1,40 @@
+<section class="panel history-panel">
+  <div class="panel__heading panel__heading--with-control">
+    <div>
+      <span class="eyebrow">Score history</span>
+      <h2>Performance over time</h2>
+    </div>
+    <label class="range-control"
+      ><span class="sr-only">Score history period</span
+      ><select [value]="scoreRange()" (change)="setScoreRange($event)">
+        <option value="3m">3 months</option>
+        <option value="6m">6 months</option>
+        <option value="12m">12 months</option>
+      </select></label
+    >
+  </div>
+  <div
+    class="history-chart"
+    [style.--history-points]="visibleScoreHistory().length"
+    role="img"
+    [attr.aria-label]="
+      'Driving score history for the last ' + scoreRangeLabel() + ': ' + historyDescription()
+    "
+  >
+    @for (point of visibleScoreHistory(); track point.label) {
+      <div class="history-column">
+        <strong>{{ point.score }}</strong>
+        <div class="history-track" aria-hidden="true">
+          <span class="history-bar" [style.height.%]="point.score"></span>
+        </div>
+        <span>{{ point.label }}</span>
+      </div>
+    }
+  </div>
+  <div class="history-summary">
+    <span>{{ scoreRangeLabel() }} trend</span>
+    <strong [class.history-summary__negative]="scoreDelta() < 0">
+      {{ scoreDelta() >= 0 ? '+' : '' }}{{ scoreDelta() }} points
+    </strong>
+  </div>
+</section>

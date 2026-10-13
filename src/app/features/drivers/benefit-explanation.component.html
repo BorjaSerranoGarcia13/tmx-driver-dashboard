@@ -1,0 +1,46 @@
+<section class="panel decision-panel">
+  <div class="panel__heading">
+    <div>
+      <span class="eyebrow">Benefit decision</span>
+      <h2>Why this outcome?</h2>
+    </div>
+  </div>
+  @if (driver().benefitDecision; as decision) {
+    <div class="decision-summary" [class]="'decision-summary--' + decision.status">
+      <app-status-pill [value]="decision.status" [label]="decision.status" />
+      <strong>{{ decision.headline }}</strong>
+      <p>{{ decision.rationale }}</p>
+    </div>
+    <dl class="decision-meta">
+      <div>
+        <dt>Benefit</dt>
+        <dd>{{ decision.benefitLabel }}</dd>
+      </div>
+      <div>
+        <dt>Evaluated</dt>
+        <dd>{{ decision.evaluatedAt | date: 'dd MMM yyyy' }}</dd>
+      </div>
+      <div>
+        <dt>Next review</dt>
+        <dd>{{ decision.nextReviewAt | date: 'dd MMM yyyy' }}</dd>
+      </div>
+    </dl>
+    <div class="decision-criteria">
+      <span class="eyebrow">Supporting signals</span>
+      @for (criterion of decision.criteria; track criterion.label) {
+        <div class="decision-criterion">
+          <app-status-pill [value]="criterion.status" [label]="criterionLabels[criterion.status]" />
+          <div>
+            <strong>{{ criterion.label }}</strong>
+            <p>{{ criterion.detail }}</p>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="no-decision">
+      <strong>No active benefit decision</strong>
+      <p>This profile has no benefit outcome to review at the moment.</p>
+    </div>
+  }
+</section>

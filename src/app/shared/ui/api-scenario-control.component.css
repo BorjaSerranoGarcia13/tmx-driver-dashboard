@@ -1,0 +1,15 @@
+.scenario-control {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 205px;
+  color: var(--ink-muted);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.scenario-control select {
+  min-height: 2.25rem;
+  font-size: 0.72rem;
+}

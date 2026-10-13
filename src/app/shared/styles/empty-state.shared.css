@@ -1,0 +1,32 @@
+.empty-panel {
+  display: grid;
+  justify-items: center;
+  padding: 4rem 1.5rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  text-align: center;
+}
+
+.empty-panel__icon {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--accent);
+  font-size: 1.35rem;
+}
+
+.empty-panel h2 {
+  margin: 1rem 0 0.3rem;
+  font-size: 1.05rem;
+}
+
+.empty-panel p {
+  margin: 0 0 1rem;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+}
