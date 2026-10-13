@@ -5,9 +5,9 @@ import {
   DecisionHistoryEntry,
   Driver,
   DrivingCriterion,
-  FleetBenchmark,
   ScorePoint,
 } from '../models/tmx.models';
+import { FleetDriver, withFleetBenchmarks } from '../models/fleet-score';
 
 const MONTH_LABELS = [
   'Nov',
@@ -159,8 +159,8 @@ const benefitDecisionFor = (
 const withDetails = (
   driver: BaseDriver,
   scores: readonly number[],
-  fleetBenchmark: FleetBenchmark,
-): Driver => {
+  fleetName: string,
+): FleetDriver => {
   const criteria = criteriaFor(driver);
 
   return {
@@ -169,25 +169,11 @@ const withDetails = (
     criteria,
     benefitDecision: benefitDecisionFor(driver, criteria),
     decisionHistory: decisionHistoryFor(driver),
-    fleetBenchmark,
+    fleetBenchmark: { fleetName },
   };
 };
 
-const fleet = (
-  fleetName: string,
-  averageScore: number,
-  rank: number,
-  totalDrivers: number,
-  percentile: number,
-): FleetBenchmark => ({
-  fleetName,
-  averageScore,
-  rank,
-  totalDrivers,
-  percentile,
-});
-
-export const DRIVER_FIXTURES: readonly Driver[] = [
+export const DRIVER_FIXTURES: readonly Driver[] = withFleetBenchmarks([
   withDetails(
     {
       id: 'tmx-1042',
@@ -218,7 +204,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [78, 80, 81, 82, 84, 84, 85, 87, 88, 90, 91, 92],
-    fleet('Northstar Mobility', 80, 2, 12, 92),
+    'Northstar Mobility',
   ),
   withDetails(
     {
@@ -243,7 +229,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [84, 83, 85, 84, 83, 84, 84, 85, 84, 84, 84, 84],
-    fleet('Central Fleet Services', 79, 6, 18, 75),
+    'Central Fleet Services',
   ),
   withDetails(
     {
@@ -268,7 +254,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [68, 70, 71, 72, 72, 73, 74, 74, 75, 76, 76, 76],
-    fleet('Central Fleet Services', 79, 11, 18, 54),
+    'Central Fleet Services',
   ),
   withDetails(
     {
@@ -293,7 +279,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [72, 70, 71, 70, 69, 68, 68, 67, 67, 68, 68, 68],
-    fleet('Westline Logistics', 72, 16, 21, 34),
+    'Westline Logistics',
   ),
   withDetails(
     {
@@ -318,7 +304,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [78, 76, 74, 72, 70, 69, 68, 67, 65, 64, 62, 61],
-    fleet('Westline Logistics', 72, 23, 21, 8),
+    'Westline Logistics',
   ),
   withDetails(
     {
@@ -343,7 +329,7 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       ],
     },
     [79, 80, 82, 83, 84, 85, 85, 86, 87, 87, 88, 88],
-    fleet('Northstar Mobility', 80, 4, 12, 83),
+    'Northstar Mobility',
   ),
   withDetails(
     {
@@ -360,6 +346,6 @@ export const DRIVER_FIXTURES: readonly Driver[] = [
       benefits: [],
     },
     [73, 72, 74, 73, 74, 73, 72, 73, 73, 73, 72, 73],
-    fleet('South Coast Motor', 76, 13, 16, 46),
+    'South Coast Motor',
   ),
-];
+]);

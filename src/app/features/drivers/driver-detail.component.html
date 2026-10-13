@@ -96,16 +96,17 @@
     <section class="panel benchmark-panel">
       <div class="panel__heading">
         <div>
-          <span class="eyebrow">Fleet context</span>
-          <h2>Benchmark</h2>
+          <span class="eyebrow">Fleet comparison</span>
+          <h2>Driver vs fleet</h2>
         </div>
       </div>
       <p class="benchmark-copy">
-        {{ driver.displayName }} compared with {{ driver.fleetBenchmark.fleetName }}.
+        {{ driver.displayName }} compared with all {{ driver.fleetBenchmark.totalDrivers }} drivers
+        in {{ driver.fleetBenchmark.fleetName }}.
       </p>
       <div class="benchmark-bars" aria-label="Driver score compared with fleet average">
         <div class="benchmark-row">
-          <span>Your score</span>
+          <span>Driver score</span>
           <div class="benchmark-track"><span [style.width.%]="driver.score"></span></div>
           <strong>{{ driver.score }}</strong>
         </div>
@@ -121,7 +122,7 @@
         <strong
           >Rank {{ driver.fleetBenchmark.rank }} of {{ driver.fleetBenchmark.totalDrivers }}</strong
         >
-        <span>{{ driver.fleetBenchmark.percentile }}th percentile in the fleet</span>
+        <span>Within {{ driver.fleetBenchmark.fleetName }}</span>
       </div>
     </section>
 

@@ -48,6 +48,9 @@ describe('DriverDetailComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Why this outcome?');
     expect(fixture.nativeElement.textContent).toContain(driver.benefitDecision?.benefitLabel);
     expect(fixture.nativeElement.textContent).toContain('Decision history');
+    expect(fixture.nativeElement.textContent).toContain('Driver score');
+    expect(fixture.nativeElement.textContent).not.toContain('Your score');
+    expect(fixture.nativeElement.textContent).toContain('Rank 1 of 2');
     expect(facade.loadDriver).toHaveBeenCalledWith(driver.id);
   });
 

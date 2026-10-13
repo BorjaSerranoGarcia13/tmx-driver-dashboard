@@ -25,5 +25,14 @@ describe('FleetOverviewComponent', () => {
     expect(fixture.nativeElement.textContent).toContain('Northstar Mobility');
     expect(fixture.nativeElement.textContent).toContain('Benefit reviews');
     expect(facade.refreshDrivers).toHaveBeenCalledOnce();
+    const component = fixture.componentInstance;
+    expect(
+      component.fleetSnapshots().find((fleet) => fleet.name === 'Northstar Mobility'),
+    ).toMatchObject({ drivers: 2, averageScore: DRIVER_FIXTURES[0].fleetBenchmark.averageScore });
+    component.regionFilter.set('North West');
+    expect(
+      component.fleetSnapshots().find((fleet) => fleet.name === 'Northstar Mobility'),
+    ).toMatchObject({ drivers: 1, averageScore: 92 });
+    expect(DRIVER_FIXTURES[0].fleetBenchmark.averageScore).toBe(90);
   });
 });

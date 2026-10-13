@@ -29,7 +29,6 @@ const driver: Driver = {
     averageScore: 78,
     rank: 1,
     totalDrivers: 2,
-    percentile: 95,
   },
 };
 

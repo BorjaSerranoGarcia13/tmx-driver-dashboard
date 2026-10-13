@@ -1,6 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Driver, RiskFilter } from '../../core/models/tmx.models';
+import { averageDriverScore } from '../../core/models/fleet-score';
 import { ReportExportService } from '../../core/export/report-export.service';
 import { NotificationService } from '../../shared/ui/notification.service';
 import { ErrorPanelComponent } from '../../shared/ui/error-panel.component';
@@ -97,7 +98,7 @@ interface ReviewItem {
           </article>
           <article>
             <span>Average score</span><strong>{{ summary().averageScore }}</strong>
-            <small>Current behaviour index</small>
+            <small>Drivers matching the selected filters</small>
           </article>
           <article>
             <span>High risk</span><strong>{{ summary().highRisk }}</strong>
@@ -168,7 +169,7 @@ interface ReviewItem {
               <span class="eyebrow">Portfolio breakdown</span>
               <h2>Fleet performance</h2>
             </div>
-            <span class="panel__meta">Select a fleet to drill down</span>
+            <span class="panel__meta">Region and risk filters apply</span>
           </div>
           <div class="table-wrap">
             <table>
@@ -251,9 +252,7 @@ export class FleetOverviewComponent implements OnInit {
   readonly summary = computed(() => {
     const drivers = this.filteredDrivers();
     return {
-      averageScore: drivers.length
-        ? Math.round(drivers.reduce((total, driver) => total + driver.score, 0) / drivers.length)
-        : 0,
+      averageScore: averageDriverScore(drivers),
       highRisk: drivers.filter((driver) => driver.riskLevel === 'high').length,
       pending: drivers.filter((driver) => driver.benefitDecision?.status === 'pending').length,
     };
@@ -286,9 +285,7 @@ export class FleetOverviewComponent implements OnInit {
       return {
         name,
         drivers: drivers.length,
-        averageScore: drivers.length
-          ? Math.round(drivers.reduce((total, driver) => total + driver.score, 0) / drivers.length)
-          : 0,
+        averageScore: averageDriverScore(drivers),
         highRisk: drivers.filter((driver) => driver.riskLevel === 'high').length,
         eligible: drivers.filter((driver) => driver.benefitDecision?.status === 'eligible').length,
         pending: drivers.filter((driver) => driver.benefitDecision?.status === 'pending').length,

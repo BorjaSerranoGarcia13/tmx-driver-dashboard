@@ -4,6 +4,25 @@ const id = 'tmx-1042';
 const key = 'tmx-driver-insights.review-work.v1';
 const nav = (page: Page) => page.getByRole('navigation', { name: 'Primary navigation' });
 
+test('driver and fleet scores agree after direct loading and filtering', async ({ page }) => {
+  await page.goto('/drivers/' + id);
+  const benchmark = page.locator('.benchmark-panel');
+  await expect(benchmark.getByRole('heading', { name: 'Driver vs fleet' })).toBeVisible();
+  await expect(benchmark.locator('.benchmark-row').nth(0)).toHaveText(/Driver score\s*92/);
+  await expect(benchmark.locator('.benchmark-row').nth(1)).toHaveText(/Fleet average\s*90/);
+  await expect(benchmark).toContainText('Rank 1 of 2');
+  await nav(page).getByRole('link', { name: 'Fleet', exact: true }).click();
+  const row = page.getByRole('row').filter({ hasText: 'Northstar Mobility' });
+  await expect(row.locator('.score-value')).toHaveText('90');
+  await page.getByRole('combobox', { name: 'Region', exact: true }).selectOption('North West');
+  await expect(row.locator('.score-value')).toHaveText('92');
+  await expect(page.getByText('Region and risk filters apply')).toBeVisible();
+  await page.getByRole('combobox', { name: 'Region', exact: true }).selectOption('all');
+  await expect(row.locator('.score-value')).toHaveText('90');
+  await page.goto('/drivers/' + id);
+  await expect(benchmark.locator('.benchmark-row').nth(1)).toHaveText(/Fleet average\s*90/);
+});
+
 test('navigation fits saved-work counters without overlapping adjacent links', async ({ page }) => {
   for (const count of [0, 1, 12, 100]) {
     await page.goto('/dashboard');

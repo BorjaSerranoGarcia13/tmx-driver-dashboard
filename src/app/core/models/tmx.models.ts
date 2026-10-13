@@ -55,7 +55,6 @@ export interface FleetBenchmark {
   readonly averageScore: number;
   readonly rank: number;
   readonly totalDrivers: number;
-  readonly percentile: number;
 }
 
 export type ApiScenario =
